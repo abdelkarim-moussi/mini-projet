@@ -79,27 +79,39 @@ int main(){
 
 void Ajouter_livre(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int *n){
             
-            if (*n >= T_MAX)
-            {
+            int nLivre;
+            
+            printf("entrer le nombre des livres que vous vouler ajouter : \n");
+            scanf("%d",&nLivre);
+
+        if (nLivre > 0){
+
+            for (int i = 0; i < nLivre; i++){
+            
+               if (*n >= T_MAX){
                 printf("le tableau est plein");
                 return;
-            }
+               }
             
-            printf("titre du livre : ");
-            getchar();
-            fgets(titres[*n],MAX_C,stdin);
-            titres[*n][strcspn(titres[*n],"\n")] = '\0';
+               printf("titre du livre : ");
+               getchar();
+               fgets(titres[*n],MAX_C,stdin);
+               titres[*n][strcspn(titres[*n],"\n")] = '\0';
 
-            printf("auteur du livre : ");
-            fgets(auteur[*n],MAX_C,stdin);
-            auteur[*n][strcspn(auteur[*n],"\n")] = '\0';
+               printf("auteur du livre : ");
+               fgets(auteur[*n],MAX_C,stdin);
+               auteur[*n][strcspn(auteur[*n],"\n")] = '\0';
 
-            printf("Prix du livre : ");
-            scanf("%f",&prix[*n]);
+               printf("Prix du livre : ");
+               scanf("%f",&prix[*n]);
 
-            printf("quantitie du livre : ");
-            scanf("%d",&quantitie[*n]);
-            (*n)++;
+               printf("quantitie du livre : ");
+               scanf("%d",&quantitie[*n]);
+               (*n)++;
+            }
+           
+        }
+        else printf("input invalide");
     
 }
 
@@ -193,7 +205,7 @@ for (int i = 0; i < *n; i++)
     if (strcmp(title,titres[i]) == 0){   
 
         strcpy(Temptitle,titres[i]);
-        strcpy(Tempauteur,titres[i]);
+        strcpy(Tempauteur,auteur[i]);
         tempP = prix[i];
         tempQ = quantitie[i];
         
@@ -208,6 +220,7 @@ for (int i = 0; i < *n; i++)
 
         (*n)--;
         
+        printf("livre supprimer avec succee -> Livre :  Titre : %s \t Auteur : %s \n",Temptitle,Tempauteur);
         break;
     }
     
