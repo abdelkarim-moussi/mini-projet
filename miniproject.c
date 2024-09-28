@@ -6,10 +6,18 @@
 
 
 void Ajouter_livre(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int *n);
+
 void Afficher_livres(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int n);
+
 void Rechercher_livre(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int *n);
+
 void Afficher_nombre_livres(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int *n);
+
 void Modifier_q_livre(int quantitie[],int *n);
+
+void Supprimer_livre(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int *n);
+
+
 int main(){
     
     char tab_titre[T_MAX][MAX_C];
@@ -53,7 +61,9 @@ int main(){
            case 5:
            Modifier_q_livre(tab_quantitie,&nb);
            break;
-           //
+           case 6:
+           Supprimer_livre(tab_titre,tab_auteur,tab_prix, tab_quantitie,&nb);
+           break;
            case 7 : printf("Bye\n");
            break;
            default: printf("invalide input");
@@ -150,7 +160,7 @@ void Afficher_nombre_livres(char titres[][MAX_C], char auteur[][MAX_C], float pr
 }
 
 void Modifier_q_livre(int quantitie[],int *n){
-    int numero, nv_quantitie;
+ int numero, nv_quantitie;
  printf("entrer le numero du livre que vous voulez modifier : \n");
  scanf("%d",&numero);
  for (int i = 0; i < *n; i++)
@@ -165,4 +175,47 @@ void Modifier_q_livre(int quantitie[],int *n){
     
  }
  
+}
+
+void Supprimer_livre(char titres[][MAX_C], char auteur[][MAX_C], float prix[], int quantitie[],int *n){
+
+printf("Entrer le nom du livre a supprimer : ");
+char title[MAX_C];
+char Temptitle[MAX_C];
+char Tempauteur[MAX_C];
+int tempQ;
+float tempP;
+getchar();
+fgets(title,MAX_C,stdin);
+title[strcspn(title,"\n")] = '\0';
+for (int i = 0; i < *n; i++)
+{
+    if (strcmp(title,titres[i]) == 0){   
+
+        strcpy(Temptitle,titres[i]);
+        strcpy(Tempauteur,titres[i]);
+        tempP = prix[i];
+        tempQ = quantitie[i];
+        
+        for (int j = 0; j < *n; j++)
+        {
+            strcpy(titres[j],titres[j+1]);
+            strcpy(auteur[j],auteur[i+1]);
+            prix[j] = prix[j+1];
+            quantitie[j] = quantitie[j+1];
+            
+        }
+
+        (*n)--;
+        
+        break;
+    }
+    
+    else printf("le nom du livre saisi n'existe pas\n");
+    
+}
+
+
+
+
 }
